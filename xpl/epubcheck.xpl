@@ -87,20 +87,20 @@
   <tr:file-uri name="jar-file">
     <p:with-option name="filename" select="$epubcheck-path"><p:empty/></p:with-option>
     <p:input port="catalog">
-      <p:document href="http://customers.le-tex.de/generic/book-conversion/xmlcatalog/catalog.xml"/>
+      <p:document href="http://this.transpect.io/xmlcatalog/catalog.xml"/>
     </p:input>
     <p:input port="resolver">
-      <p:document href="http://transpect.le-tex.de/xslt-util/xslt-based-catalog-resolver/resolve-uri-by-catalog.xsl"/>
+      <p:document href="http://transpect.io/xslt-util/xslt-based-catalog-resolver/xsl/resolve-uri-by-catalog.xsl"/>
     </p:input>
   </tr:file-uri>
   
   <tr:file-uri name="epub-file">
     <p:with-option name="filename" select="$epubfile-path"><p:empty/></p:with-option>
     <p:input port="catalog">
-      <p:document href="http://customers.le-tex.de/generic/book-conversion/xmlcatalog/catalog.xml"/>
+      <p:document href="http://this.transpect.io/xmlcatalog/catalog.xml"/>
     </p:input>
     <p:input port="resolver">
-      <p:document href="http://transpect.le-tex.de/xslt-util/xslt-based-catalog-resolver/resolve-uri-by-catalog.xsl"/>
+      <p:document href="http://transpect.io/xslt-util/xslt-based-catalog-resolver/xsl/resolve-uri-by-catalog.xsl"/>
     </p:input>
   </tr:file-uri>
   
