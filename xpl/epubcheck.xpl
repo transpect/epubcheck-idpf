@@ -65,9 +65,9 @@
   </p:option>
 
   <p:import href="http://xmlcalabash.com/extension/steps/library-1.0.xpl"/>
-  <p:import href="http://transpect.le-tex.de/xproc-util/file-uri/file-uri.xpl"/>
-  <p:import href="http://transpect.le-tex.de/xproc-util/store-debug/store-debug.xpl" />
-  <p:import href="http://transpect.le-tex.de/book-conversion/converter/xpl/simple-progress-msg.xpl"/>
+  <p:import href="http://transpect.io/xproc-util/file-uri/xpl/file-uri.xpl"/>
+  <p:import href="http://transpect.io/xproc-util/store-debug/xpl/store-debug.xpl" />
+  <p:import href="http://transpect.io/xproc-util/simple-progress-msg/xpl/simple-progress-msg.xpl"/>
 
   <p:variable name="epubcheck-path" 
     select="concat('http://transpect.io/epubcheck-ipdf/', ($epubcheck-version[normalize-space()], '4.0.1')[1],'/bin/epubcheck.jar')"/>
