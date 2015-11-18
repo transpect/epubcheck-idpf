@@ -6,7 +6,7 @@
   xmlns:tr="http://transpect.io"  
   version="1.0" 
   name="epubcheck" 
-  type="tr:epubcheck-ipdf">
+  type="tr:epubcheck-idpf">
 
   <p:documentation xmlns="http://www.w3.org/1999/xhtml">
     <h1>tr:epubcheck</h1>
@@ -70,7 +70,7 @@
   <p:import href="http://transpect.io/xproc-util/simple-progress-msg/xpl/simple-progress-msg.xpl"/>
 
   <p:variable name="epubcheck-path" 
-    select="concat('http://transpect.io/epubcheck-ipdf/', ($epubcheck-version[normalize-space()], '4.0.1')[1],'/bin/epubcheck.jar')"/>
+    select="concat('http://transpect.io/epubcheck-idpf/', ($epubcheck-version[normalize-space()], '4.0.1')[1],'/bin/epubcheck.jar')"/>
 
   <tr:simple-progress-msg file="epubcheck-start.txt" name="msg-epubcheck-start">
     <p:input port="msgs">
@@ -83,9 +83,13 @@
     </p:input>
     <p:with-option name="status-dir-uri" select="$status-dir-uri"/>
   </tr:simple-progress-msg>
+  
+  <cx:message>
+    <p:with-option name="message" select="'[info] epubcheck path: ', $epubcheck-path"/>
+  </cx:message>
 
   <tr:file-uri name="jar-file">
-    <p:with-option name="filename" select="$epubcheck-path"><p:empty/></p:with-option>
+    <p:with-option name="filename" select="$epubcheck-path"/>
     <p:input port="catalog">
       <p:document href="http://this.transpect.io/xmlcatalog/catalog.xml"/>
     </p:input>
@@ -95,7 +99,7 @@
   </tr:file-uri>
   
   <tr:file-uri name="epub-file">
-    <p:with-option name="filename" select="$epubfile-path"><p:empty/></p:with-option>
+    <p:with-option name="filename" select="$epubfile-path"/>
     <p:input port="catalog">
       <p:document href="http://this.transpect.io/xmlcatalog/catalog.xml"/>
     </p:input>
