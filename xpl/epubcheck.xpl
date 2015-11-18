@@ -3,7 +3,7 @@
   xmlns:p="http://www.w3.org/ns/xproc" 
   xmlns:c="http://www.w3.org/ns/xproc-step" 
   xmlns:cx="http://xmlcalabash.com/ns/extensions"
-  xmlns:tr="http://transpect.oi"  
+  xmlns:tr="http://transpect.io"  
   version="1.0" 
   name="epubcheck" 
   type="tr:epubcheck-ipdf">
