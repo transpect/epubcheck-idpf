@@ -9,11 +9,8 @@
   type="tr:epubcheck-idpf">
 
   <p:documentation xmlns="http://www.w3.org/1999/xhtml">
-    <h1>tr:epubcheck</h1>
-    <h2>Description</h2>
-    <p>An implementation of epubcheck to provide it's results as Schematron SVRL.</p>
-    <h2>Usage</h2>
-    <p>Provide the path to the EPUB file with the option <code>epubfile-path</code>.</p>
+    An implementation of epubcheck to provide it's results as Schematron SVRL.
+    Provide the path to the EPUB file with the option <code>epubfile-path</code>.
   </p:documentation>
 
   <p:output port="result" primary="true">
