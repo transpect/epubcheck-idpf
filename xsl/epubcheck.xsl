@@ -26,7 +26,7 @@
   </xsl:template>
 
   <!-- drop empty lines and status messages-->
-  <xsl:template match="c:line[not(text()) or matches(., '(^Check\sfinished.+|EpubCheck (mit Fehlern )?abgeschlossen\.)')]" priority="10"/>
+	<xsl:template match="c:line[not(text()) or matches(., '(^Check\sfinished.+|EpubCheck (mit (Fehlern|Warnungen) )?abgeschlossen\.)', 'i')]" priority="10"/>
 
   <!-- process errors -->
   <xsl:template match="c:result">
