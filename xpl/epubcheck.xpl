@@ -3,7 +3,8 @@
   xmlns:p="http://www.w3.org/ns/xproc" 
   xmlns:c="http://www.w3.org/ns/xproc-step" 
   xmlns:cx="http://xmlcalabash.com/ns/extensions"
-  xmlns:tr="http://transpect.io"  
+  xmlns:tr="http://transpect.io"
+  xmlns:pxf="http://exproc.org/proposed/steps/file"
   version="1.0" 
   name="epubcheck" 
   type="tr:epubcheck-idpf">
@@ -66,8 +67,9 @@
   <p:import href="http://transpect.io/xproc-util/store-debug/xpl/store-debug.xpl" />
   <p:import href="http://transpect.io/xproc-util/simple-progress-msg/xpl/simple-progress-msg.xpl"/>
 
+  <p:variable name="fallback-version" select="'4.0.2'"/>
   <p:variable name="epubcheck-path" 
-    select="concat('http://transpect.io/epubcheck-idpf/', ($epubcheck-version[normalize-space()], '4.0.2')[1],'/bin/epubcheck.jar')"/>
+    				select="concat('http://transpect.io/epubcheck-idpf/', ($epubcheck-version[normalize-space()], $fallback-version)[1],'/bin/epubcheck.jar')"/>
 
   <tr:simple-progress-msg file="epubcheck-start.txt" name="msg-epubcheck-start">
     <p:input port="msgs">
@@ -105,14 +107,57 @@
     </p:input>
   </tr:file-uri>
   
+  	<pxf:info name="jar-info" fail-on-error="false">
+	  	<p:with-option name="href" select="/*/@local-href">
+	  		<p:pipe port="result" step="jar-file"/>
+	  	</p:with-option>
+	  </pxf:info>
+  	
+  	<p:choose name="checked-jar-file">
+  		<p:xpath-context>
+  			<p:pipe port="result" step="jar-info"/>
+  		</p:xpath-context>
+  		<p:when test="/*/c:file[@readable = 'true']">
+  			<p:output port="result">
+  				<p:pipe port="result" step="orig-result"/>
+  			</p:output>
+  			<p:identity name="orig-result">
+  				<p:input port="source">
+  					<p:pipe port="result" step="jar-file"/>
+  				</p:input>
+  			</p:identity>
+  			<p:sink/>
+		 </p:when>
+  		<p:otherwise>
+  			<p:output port="result">
+  				<p:pipe port="result" step="jar-file-fallback"/>
+  			</p:output>
+  			<cx:message>
+   				 <p:with-option name="message" select="'######### [info] jar in epubcheck path: ', $epubcheck-path, ' not found. Used fallback version ', $fallback-version,' instead.'"/>
+  			</cx:message>
+  			<tr:file-uri name="jar-file-fallback">
+			    <p:with-option name="filename" select="concat('http://transpect.io/epubcheck-idpf/', $fallback-version,'/bin/epubcheck.jar')"/>
+			    <p:input port="catalog">
+			      <p:document href="http://this.transpect.io/xmlcatalog/catalog.xml"/>
+			    </p:input>
+			    <p:input port="resolver">
+			      <p:document href="http://transpect.io/xslt-util/xslt-based-catalog-resolver/xsl/resolve-uri-by-catalog.xsl"/>
+			    </p:input>
+			  </tr:file-uri>
+  			<p:sink/>
+  		</p:otherwise>
+  </p:choose>
+	
   <p:group name="do-check">
     <p:variable name="jar" select="/*/@os-path">
-      <p:pipe port="result" step="jar-file"/>
+      <p:pipe port="result" step="checked-jar-file"/>
     </p:variable>
     <p:variable name="epub" select="/*/@os-path">
       <p:pipe port="result" step="epub-file"/>
     </p:variable>
     
+  	<p:sink/>
+  	
     <p:exec name="execute-epubcheck" result-is-xml="false" errors-is-xml="false" wrap-error-lines="true"
       wrap-result-lines="true" cx:depends-on="msg-epubcheck-start">
       <p:input port="source">
