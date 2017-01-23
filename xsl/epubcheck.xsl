@@ -6,10 +6,17 @@
   xmlns:svrl="http://purl.oclc.org/dsdl/svrl" 
   xmlns:s="http://purl.oclc.org/dsdl/schematron" 
   xmlns:tr="http://transpect.io" 
-  exclude-result-prefixes="xs" version="2.0">
+  xmlns:jhove="http://hul.harvard.edu/ois/xml/ns/jhove"
+  exclude-result-prefixes="xs jhove cx c" version="2.0">
+  
+  <!--  * 
+        * This stylesheet converts the output of the command line version 
+        * and the calabash extension version of epubcheck to SVRL.  
+        * -->
 
   <!-- default sourcepath for svrl asserts -->
   <xsl:param name="svrl-srcpath"/>
+  <xsl:param name="epubfile-path"/>
 
   <!-- identity template -->
   <xsl:template match="*|@*">
@@ -17,13 +24,44 @@
       <xsl:apply-templates select="@*, node()"/>
     </xsl:copy>
   </xsl:template>
-
-  <!-- root svrl element -->
-  <xsl:template match="/cx:document">
+  
+  <xsl:template match="/jhove:jhove|/cx:document">
     <svrl:schematron-output tr:rule-family="epubcheck" tr:step-name="epubcheck">
       <xsl:apply-templates/>
     </svrl:schematron-output>
   </xsl:template>
+  
+  <!--  *
+        * JSTOR/Harvard Object Validation Environment (output of calabash extension)
+        *-->
+  
+  <xsl:template match="jhove:*">
+    <xsl:apply-templates select="*"/>
+  </xsl:template>
+  
+  <xsl:template match="jhove:message">
+    <!-- strip severity from text output -->
+    <xsl:variable name="severity" select="@severity" as="attribute(severity)"/>
+    <xsl:variable name="error-type" select="@subMessage" as="attribute(subMessage)"/>
+    <svrl:failed-assert test="{ancestor::jhove:repInfo/@uri}" 
+                         id="{if (matches($error-type, '\S')) 
+                              then concat('epubcheck_', $error-type) 
+                              else concat('epubcheck_', generate-id()) }" 
+                       role="{$severity}" location="{$svrl-srcpath}">
+      <svrl:text>
+        <s:span class="srcpath">
+          <xsl:value-of select="$svrl-srcpath"/>
+        </s:span>
+        <s:span class="epubcheck">
+          <xsl:apply-templates/>
+        </s:span>
+      </svrl:text>
+    </svrl:failed-assert>
+  </xsl:template>
+  
+  <!--  *
+        * parse command line output of epubcheck
+        *-->
 
   <!-- drop empty lines and status messages-->
 	<xsl:template match="c:line[not(text()) or matches(., '(^Check\sfinished.+|EpubCheck (mit (Fehlern|Warnungen) )?abgeschlossen\.)', 'i')]" priority="10"/>
@@ -38,7 +76,7 @@
     <!-- strip severity from text output -->
     <xsl:variable name="severity" select="if (matches(text(), '^\p{Lu}+\(\p{Lu}{3}-\d{3}\)')) then lower-case(replace(text(), '^(\p{Lu}+)\(.+$', '$1')) else  lower-case(replace(text(), '^([A-Z]+):.+$', '$1'))"/>
     <xsl:variable name="error-type" select="s:error-type(.)"/>
-    <svrl:failed-assert test="{/cx:document/@epubfile-path}" 
+    <svrl:failed-assert test="{$epubfile-path}" 
       id="{if (matches($error-type, '\S')) 
             then concat('epubcheck_', $error-type) 
             else concat('epubcheck_', generate-id()) }" 
