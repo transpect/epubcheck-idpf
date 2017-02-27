@@ -31,7 +31,7 @@
   </tr:file-uri>
   
   <pxf:info name="jar-info" fail-on-error="false">
-    <p:with-option name="href" select="/c:result/@local-href">
+    <p:with-option name="href" select="/*/@local-href">
       <p:pipe port="result" step="jar-file"/>
     </p:with-option>
   </pxf:info>
@@ -40,7 +40,7 @@
     <p:xpath-context>
       <p:pipe port="result" step="jar-info"/>
     </p:xpath-context>
-    <p:when test="/*/c:file[@readable = 'true']">
+    <p:when test="/c:file[@readable = 'true']">
       <p:output port="result">
         <p:pipe port="result" step="orig-result"/>
       </p:output>
