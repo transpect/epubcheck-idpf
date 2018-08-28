@@ -10,10 +10,10 @@
   
   <p:output port="result"/>
   
-  <p:option name="epubcheck-path"/>
+  <p:option name="epubcheck-path" select="'../4.0.2/bin/epubcheck.jar'"/>
   <p:option name="epubfile-path"/>
-  <p:option name="fallback-version"/>
-  <p:option name="svrl-srcpath"/>
+  <p:option name="fallback-version" select="'4.0.2'"/>
+  <p:option name="svrl-srcpath" select="'BC_Orphans'"/>
   <p:option name="debug" select="'no'"/>
   <p:option name="debug-dir-uri" select="'debug'"/>
   
