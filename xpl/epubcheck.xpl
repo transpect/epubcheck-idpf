@@ -50,12 +50,13 @@
   
   <p:option name="interface" select="'commandline'"><!-- commandline|extension-->
     <p:documentation xmlns="http://www.w3.org/1999/xhtml">
-      Whether to invoke epubcheck via commandline or with the calabash extension. You have to add the calabash extension manually to your calabash distro:
+      Whether to invoke epubcheck via commandline or with the calabash extension. 
+      You have to add the calabash extension manually to your calabash distro:
       <pre>
         <code>$ svn co https://github.com/transpect/epubcheck-extension/trunk calabash/extensions/transpect/epubcheck-extension</code>
       </pre>
-      You should also ensure to use the latest Calabash, at least version 1.1.14 running with Saxon version 9.6.0.7. Please note also that epubcheck was patched and 
-      compiled to run with Saxon version 9.6.0.7.
+      You should also ensure to use the latest Calabash, at least version 1.1.21.
+      Please note also that epubcheck was patched and compiled to run with Saxon version 9.8.0.12.
     </p:documentation>
   </p:option>
 
@@ -82,7 +83,8 @@
   <p:import href="epubcheck-command-line.xpl"/>
 
   <p:import href="http://xmlcalabash.com/extension/steps/library-1.0.xpl"/>
-  <p:import href="http://transpect.io/calabash-extensions/transpect-lib.xpl"/>
+  <p:import href="http://transpect.io/calabash-extensions/epubcheck-extension/epubcheck-declaration.xpl"/>
+  
   <p:import href="http://transpect.io/xproc-util/file-uri/xpl/file-uri.xpl"/>
   <p:import href="http://transpect.io/xproc-util/store-debug/xpl/store-debug.xpl" />
   <p:import href="http://transpect.io/xproc-util/simple-progress-msg/xpl/simple-progress-msg.xpl"/>
