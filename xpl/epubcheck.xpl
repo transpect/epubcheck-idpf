@@ -133,12 +133,22 @@
         <p:with-option name="debug-dir-uri" select="$debug-dir-uri"/>
       </tr:epubcheck-command-line>
       
+      <tr:store-debug pipeline-step="epubcheck/stdout">
+        <p:with-option name="active" select="$debug"/>
+        <p:with-option name="base-uri" select="$debug-dir-uri"/>
+      </tr:store-debug>
+      
     </p:when>
     <p:otherwise>
       
       <tr:epubcheck>
         <p:with-option name="href" select="$epubfile-path"/>
       </tr:epubcheck>
+      
+      <tr:store-debug pipeline-step="epubcheck/jhove">
+        <p:with-option name="active" select="$debug"/>
+        <p:with-option name="base-uri" select="$debug-dir-uri"/>
+      </tr:store-debug>
       
       <p:xslt name="convert-epubcheck-output">
         <p:input port="stylesheet">
