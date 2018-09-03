@@ -73,7 +73,7 @@
     </p:documentation>
   </p:option>
   
-  <p:option name="status-dir-uri" select="'status'">
+  <p:option name="status-dir-uri" select="concat( resolve-uri( $debug-dir-uri ), '/status' )">
     <p:documentation xmlns="http://www.w3.org/1999/xhtml">
       <h3>Option: <code>status-dir-uri</code></h3>
       <p>This variable expects an URI. The file (see option above) is saved to this URI.</p>
