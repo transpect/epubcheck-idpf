@@ -98,7 +98,8 @@
   </xsl:template>
 
   <xsl:template match="svrl:failed-assert/@id[. = 'sch_styles_undefined']">
-    <xsl:attribute name="{name()}" select="concat(., '_', ../svrl:text/s:span[@class = 'style-name'])"/>
+    <xsl:attribute name="{name()}"
+                   select="concat(., '_', svrl:text/s:span[@class = 'style-name'])"/>
   </xsl:template>
 
   <xsl:function name="s:error-type" as="xs:string?">
