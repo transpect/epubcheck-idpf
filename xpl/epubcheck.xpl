@@ -34,7 +34,7 @@
     </p:documentation>
   </p:option>
 
-  <p:option name="epubcheck-version" select="'4.1.1'" required="false">
+  <p:option name="epubcheck-version" select="'4.1.2'" required="false">
     <p:documentation xmlns="http://www.w3.org/1999/xhtml">
       <h3>Option: <code>epubcheck-version</code></h3>
       <p>If you want to use another epubcheck version as shipped within this repository, provide the name of the version. Currently 4.0.2 and 3.0.1 are available.</p>
@@ -89,7 +89,7 @@
   <p:import href="http://transpect.io/xproc-util/store-debug/xpl/store-debug.xpl" />
   <p:import href="http://transpect.io/xproc-util/simple-progress-msg/xpl/simple-progress-msg.xpl"/>
 
-  <p:variable name="fallback-version" select="'4.1.1'"/>
+  <p:variable name="fallback-version" select="'4.1.2'"/>
   <p:variable name="epubcheck-path" 
     				select="concat('http://transpect.io/epubcheck-idpf/', ($epubcheck-version[normalize-space()], $fallback-version)[1],'/bin/epubcheck.jar')"/>
 
