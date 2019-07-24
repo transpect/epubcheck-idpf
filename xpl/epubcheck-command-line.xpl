@@ -57,7 +57,7 @@
       </p:output>
       
       <cx:message>
-        <p:with-option name="message" select="'######### [info] jar in epubcheck path: ', $epubcheck-path, ' not found. Used fallback version ', $fallback-version,' instead.'"/>
+        <p:with-option name="message" select="'[WARNING] jar in epubcheck path: ', $epubcheck-path, ' not found. Used fallback version ', $fallback-version,' instead.'"/>
       </cx:message>
       
       <tr:file-uri name="jar-file-fallback">
