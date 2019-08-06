@@ -41,9 +41,7 @@
   
   <xsl:template match="jhove:message">
     <!-- strip severity from text output -->
-    <xsl:variable name="severity" as="xs:string"
-                  select="(if(matches(., '\sWARN,')) then 'warning' else 'error', 
-                           @severity)[1]"/>
+    <xsl:variable name="severity" select="@severity" as="attribute(severity)"/>
     <xsl:variable name="error-type" select="@subMessage" as="attribute(subMessage)"/>
     <svrl:failed-assert test="{ancestor::jhove:repInfo/@uri}" 
                          id="{if (matches($error-type, '\S')) 
@@ -74,12 +72,11 @@
   </xsl:template>
 
   <!-- construct error messages -->
-  <xsl:template match="c:line[text()]">
+  <xsl:template match="c:line[text()][not(starts-with(., 'EPUBCheck'))]">
     <!-- strip severity from text output -->
-    <xsl:variable name="severity" 
-                  select="if(matches(text(), '^\p{Lu}+\(\p{Lu}{3}-\d{3}\)')) 
-                          then  lower-case(replace(text(), '^(\p{Lu}+)\(.+$', '$1')) 
-                          else  lower-case(replace(text(), '^([A-Z]+):.+$', '$1'))"/>
+    <xsl:variable name="severity" select="if (matches(text(), '^\p{Lu}+\(\p{Lu}{3}-\d{3}\)')) 
+                                          then lower-case(replace(text(), '^(\p{Lu}+)\(.+$', '$1')) 
+                                          else  lower-case(replace(text(), '^([A-Z]+):.+$', '$1'))"/>
     <xsl:variable name="error-type" select="s:error-type(.)"/>
     <svrl:failed-assert test="{$epubfile-path}" 
       id="{if (matches($error-type, '\S')) 
@@ -98,8 +95,7 @@
   </xsl:template>
 
   <xsl:template match="svrl:failed-assert/@id[. = 'sch_styles_undefined']">
-    <xsl:attribute name="{name()}"
-                   select="concat(., '_', svrl:text/s:span[@class = 'style-name'])"/>
+    <xsl:attribute name="{name()}" select="concat(., '_', ../svrl:text/s:span[@class = 'style-name'])"/>
   </xsl:template>
 
   <xsl:function name="s:error-type" as="xs:string?">
