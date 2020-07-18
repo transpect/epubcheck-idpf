@@ -16,6 +16,7 @@
   <p:option name="svrl-srcpath" select="'BC_Orphans'"/>
   <p:option name="debug" select="'no'"/>
   <p:option name="debug-dir-uri" select="'debug'"/>
+  <p:option name="lang" select="'en'"/>
   
   <p:import href="http://xmlcalabash.com/extension/steps/library-1.0.xpl"/>
   <p:import href="http://transpect.io/xproc-util/file-uri/xpl/file-uri.xpl"/>
@@ -86,7 +87,7 @@
         <p:empty/>
       </p:input>
       <p:with-option name="command" select="'java'"/>
-      <p:with-option name="args" select="concat('-jar ', $jar, ' ', $epubfile-path)"/>
+      <p:with-option name="args" select="concat('-jar ', $jar, ' --locale ', $lang, ' ', $epubfile-path)"/>
     </p:exec>
     
     <p:sink/>

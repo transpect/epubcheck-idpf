@@ -80,6 +80,14 @@
     </p:documentation>
   </p:option>
   
+  <p:option name="lang" select="'en'">
+    <p:documentation xmlns="http://www.w3.org/1999/xhtml">
+      <h3>Option: <code>lang</code></h3>
+      <p>Set the localization for epubcheck</p>
+    </p:documentation>
+  </p:option>
+
+  
   <p:import href="epubcheck-command-line.xpl"/>
 
   <p:import href="http://xmlcalabash.com/extension/steps/library-1.0.xpl"/>
@@ -129,6 +137,7 @@
         </p:with-option>
         <p:with-option name="fallback-version" select="$fallback-version"/>
         <p:with-option name="svrl-srcpath" select="$svrl-srcpath"/>
+        <p:with-option name="lang" select="$lang"/>
         <p:with-option name="debug" select="$debug"/>
         <p:with-option name="debug-dir-uri" select="$debug-dir-uri"/>
       </tr:epubcheck-command-line>
