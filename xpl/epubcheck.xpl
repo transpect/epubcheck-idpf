@@ -100,7 +100,8 @@
   <p:variable name="fallback-version" select="'4.2.4'"/>
   <p:variable name="epubcheck-path" 
     				select="concat('http://transpect.io/epubcheck-idpf/', ($epubcheck-version[normalize-space()], $fallback-version)[1],'/bin/epubcheck.jar')"/>
-
+  <p:variable name="locale" select="if (xs:integer(replace($epubcheck-version, '\.', '')) ge 424) then concat(' --locale ',$lang , ' ') else ' '"/>
+  
   <tr:simple-progress-msg file="epubcheck-start.txt" name="msg-epubcheck-start">
     <p:input port="msgs">
       <p:inline>
@@ -114,7 +115,7 @@
   </tr:simple-progress-msg>
   
   <cx:message>
-    <p:with-option name="message" select="'[info] epubcheck path: ', $epubcheck-path"/>
+    <p:with-option name="message" select="'[info] epubcheck path: ', $epubcheck-path, ' locale: ', $locale"/
   </cx:message>
 
   <tr:file-uri name="epub-file">
@@ -137,7 +138,7 @@
         </p:with-option>
         <p:with-option name="fallback-version" select="$fallback-version"/>
         <p:with-option name="svrl-srcpath" select="$svrl-srcpath"/>
-        <p:with-option name="lang" select="$lang"/>
+        <p:with-option name="locale" select="$locale"/>
         <p:with-option name="debug" select="$debug"/>
         <p:with-option name="debug-dir-uri" select="$debug-dir-uri"/>
       </tr:epubcheck-command-line>
