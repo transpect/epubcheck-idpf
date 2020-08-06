@@ -26,7 +26,7 @@
   </xsl:template>
   
   <xsl:template match="/jhove:jhove|/cx:document">
-    <svrl:schematron-output tr:rule-family="epubcheck" tr:step-name="epubcheck">
+    <svrl:schematron-output tr:rule-family="{string-join(('epubcheck', @epubcheck-version), ' ')}" tr:step-name="epubcheck">
       <xsl:apply-templates/>
     </svrl:schematron-output>
   </xsl:template>
