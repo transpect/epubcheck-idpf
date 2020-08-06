@@ -16,7 +16,7 @@
   <p:option name="svrl-srcpath" select="'BC_Orphans'"/>
   <p:option name="debug" select="'no'"/>
   <p:option name="debug-dir-uri" select="'debug'"/>
-  <p:option name="lang" select="'en'"/>
+  <p:option name="locale" select="' --locale en '"/>
   
   <p:import href="http://xmlcalabash.com/extension/steps/library-1.0.xpl"/>
   <p:import href="http://transpect.io/xproc-util/file-uri/xpl/file-uri.xpl"/>
@@ -87,8 +87,12 @@
         <p:empty/>
       </p:input>
       <p:with-option name="command" select="'java'"/>
-      <p:with-option name="args" select="concat('-jar ', $jar, ' --locale ', $lang, ' ', $epubfile-path)"/>
+      <p:with-option name="args" select="concat('-jar ', $jar, $locale, $epubfile-path)"/>
     </p:exec>
+    
+    <cx:message>
+       <p:with-option name="message" select="'[INFO] epubcheck invocation: ', concat('-jar ', $jar, $locale, $epubfile-path)"/>
+    </cx:message>
     
     <p:sink/>
     
@@ -105,7 +109,11 @@
     <p:add-attribute match="/cx:document" attribute-name="epubfile-path">
       <p:with-option name="attribute-value" select="$epubfile-path"/>
     </p:add-attribute>
-    
+
+    <p:add-attribute match="/cx:document" attribute-name="epubcheck-version">
+      <p:with-option name="attribute-value" select="replace($epubcheck-path, '^.+?/(\d+\.\d+\.\d+)/bin.+$', '$1')"/>
+    </p:add-attribute
+          
     <tr:store-debug pipeline-step="epubcheck/epubcheck.out">
       <p:with-option name="active" select="$debug"/>
       <p:with-option name="base-uri" select="$debug-dir-uri"/>
