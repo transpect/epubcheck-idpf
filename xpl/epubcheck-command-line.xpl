@@ -112,7 +112,7 @@
 
     <p:add-attribute match="/cx:document" attribute-name="epubcheck-version">
       <p:with-option name="attribute-value" select="replace($epubcheck-path, '^.+?/(\d+\.\d+\.\d+)/bin.+$', '$1')"/>
-    </p:add-attribute
+    </p:add-attribute>
           
     <tr:store-debug pipeline-step="epubcheck/epubcheck.out">
       <p:with-option name="active" select="$debug"/>
