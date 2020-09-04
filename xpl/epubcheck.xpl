@@ -115,7 +115,7 @@
   </tr:simple-progress-msg>
   
   <cx:message>
-    <p:with-option name="message" select="'[info] epubcheck path: ', $epubcheck-path, ' locale: ', $locale"/
+    <p:with-option name="message" select="'[info] epubcheck path: ', $epubcheck-path, ' locale: ', $locale"/>
   </cx:message>
 
   <tr:file-uri name="epub-file">
