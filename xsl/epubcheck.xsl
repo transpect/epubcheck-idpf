@@ -74,7 +74,7 @@
   <!-- construct error messages -->
   <xsl:template match="c:line[text()][not(starts-with(., 'EPUBCheck'))]">
     <!-- strip severity from text output -->
-    <xsl:variable name="severity" select="if (matches(text(), '^\p{Lu}+\(\p{Lu}{3}-\d{3}\)')) 
+    <xsl:variable name="severity" select="if (matches(text(), '^\p{Lu}+\(\p{Lu}{3}[_-]\d{3}\)')) 
                                           then lower-case(replace(text(), '^(\p{Lu}+)\(.+$', '$1')) 
                                           else  lower-case(replace(text(), '^([A-Z]+):.+$', '$1'))"/>
     <xsl:variable name="error-type" select="s:error-type(.)"/>
@@ -103,8 +103,8 @@
     
     <xsl:choose>
       <!-- EPUB Check 4 messages -->
-      <xsl:when test="$error-message[matches(., '^\p{Lu}+\(\p{Lu}{3}-\d{3}\)')]">
-        <xsl:value-of select="replace($error-message, '^\p{Lu}+\((\p{Lu}{3}-\d{3})\).+$', '$1')"/>
+      <xsl:when test="$error-message[matches(., '^\p{Lu}+\(\p{Lu}{3}[_-]\d{3}\)')]">
+        <xsl:value-of select="replace($error-message, '^\p{Lu}+\((\p{Lu}{3}[_-]\d{3})\).+$', '$1')"/>
       </xsl:when>
       <!-- EPUB Check 3 messages -->
       <xsl:otherwise>
