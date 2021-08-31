@@ -87,9 +87,25 @@
         <s:span class="srcpath">
           <xsl:value-of select="$svrl-srcpath"/>
         </s:span>
+        <xsl:choose>
+          <xsl:when test="matches(., ':.+:')">
+            <span class="issue" xmlns="http://www.w3.org/1999/xhtml">
+              <xsl:value-of select="replace(., '^(.+?:)\p{Zs}*.+$', '$1')"/>
+            </span>
+             <br xmlns="http://www.w3.org/1999/xhtml"/>
         <s:span class="epubcheck">
+              <xsl:value-of select="replace(., '^.+?:\p{Zs}+(.+:).+$', '$1')"/>
+              <br xmlns="http://www.w3.org/1999/xhtml"/>
+              <br xmlns="http://www.w3.org/1999/xhtml"/>
+              <xsl:value-of select="replace(., '^.+?:\p{Zs}+(.+:)\p{Zs}*', '')"/>
+            </s:span>
+          </xsl:when>
+          <xsl:otherwise>
+            <s:span class="epubcheck">
           <xsl:value-of select="."/>
         </s:span>
+          </xsl:otherwise>
+        </xsl:choose>
       </svrl:text>
     </svrl:failed-assert>
   </xsl:template>
