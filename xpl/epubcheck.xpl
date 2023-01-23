@@ -34,7 +34,7 @@
     </p:documentation>
   </p:option>
 
-  <p:option name="epubcheck-version" select="'4.2.6'" required="false">
+  <p:option name="epubcheck-version" select="'5.0.0'" required="false">
     <p:documentation xmlns="http://www.w3.org/1999/xhtml">
       <h3>Option: <code>epubcheck-version</code></h3>
       <p>If you want to use another epubcheck version as shipped within this repository, provide the name of the version. Currently 4.0.2 and 3.0.1 are available.</p>
@@ -99,7 +99,7 @@
 
   <p:variable name="fallback-version" select="'4.2.6'"/>
   <p:variable name="epubcheck-path" 
-    				select="concat('http://transpect.io/epubcheck-idpf/', ($epubcheck-version[normalize-space()], $fallback-version)[1],'/bin/epubcheck.jar')"/>
+    select="concat('http://transpect.io/epubcheck-idpf/', ($epubcheck-version[normalize-space()], $fallback-version)[1],'/bin/epubcheck.jar')"/>
   <p:variable name="locale" select="if (xs:integer(replace($epubcheck-version, '\.', '')) ge 424) then concat(' --locale ',$lang , ' ') else ' '"/>
   
   <tr:simple-progress-msg file="epubcheck-start.txt" name="msg-epubcheck-start">
