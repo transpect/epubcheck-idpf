@@ -74,10 +74,7 @@
       <p>Set the localization for epubcheck</p>
     </p:documentation>
   </p:option>
-
   
-  <p:import href="epubcheck-command-line.xpl"/>
-
   <p:import href="http://xmlcalabash.com/extension/steps/library-1.0.xpl"/>
   
   <p:import href="http://transpect.io/xproc-util/file-uri/xpl/file-uri.xpl"/>
