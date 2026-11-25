@@ -37,7 +37,7 @@
   <p:option name="epubcheck-version" select="'5.3.0'" required="false">
     <p:documentation xmlns="http://www.w3.org/1999/xhtml">
       <h3>Option: <code>epubcheck-version</code></h3>
-      <p>If you want to use another epubcheck version as shipped within this repository, provide the name of the version. Currently 4.0.2 and 3.0.1 are available.</p>
+      <p>If you want to use another epubcheck version as shipped within this repository, provide the name of the version. Currently 5.1.0, 5.2.1 and 5.3.0 are available.</p>
     </p:documentation>
   </p:option>
   
